@@ -30,3 +30,5 @@ document.location.reload()
     clear: both;
 }
 ```
+
+# XMLHttpRequest对象
