@@ -1,0 +1,98 @@
+$p1color: orange;
+@for $i from 1 through 4 {
+  .item-#{$i}{
+    font-size: #{$i+10}px;
+  }
+}
+@for $j from 1 to 4 {
+  .a-#{$j} {
+    width: #{$j+10}px;
+  }
+}
+@each $a in activ, hover, visited {
+  .#{$a}-icon {
+    background-image: url('./../#{$a}.png');
+  }
+}
+@each $header,$size in (h1:1em,h2:2em,h3:3em) {
+  #{$header} {
+    font-size: $size;
+  }
+}
+$aa: 8;  
+@while $aa > 0{
+  @if $aa % 2 == 0 {
+    .item-#{$aa} {
+      width: 2em * $aa;
+    }
+  }@else{
+    .item-#{$aa} {
+      height: 3em * $aa;
+    }
+  }
+  $aa: $aa - 1;
+}
+@function fun($n){
+  @return $n * 100px
+}
+
+a {
+  color: #fff;
+  width: fun(10);
+  &:hover{
+    color: red;
+    font-size: 1px + 10px;
+    height: (100px/10);
+  }
+  &:active{
+    color: blue;
+  }
+}
+span{
+  color: $p1color;
+  $width: 100px;
+  height: $width;
+}
+.span1{
+  font-size: 20px;
+  @extend span;
+}
+@mixin d {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 20px;
+  border-top-left-radius: 50px;
+}
+.g{
+  @include d;
+}
+
+@mixin dd($a,$b,$c){
+  color: $a;
+  &:hover{
+    color: $b;
+  }
+  &:visited{
+    color: $c;
+  }
+}
+.gg{
+  @include dd('#fff','#eee','#aaa')
+}
+.ggg{
+  @include dd('orange','blue','red')
+}
+.c{
+  font: {
+    weight: bold;
+    family: '楷体';
+    size: 20px;
+  }
+}
+// 占位符%
+%span{
+  font-size: 20px;
+  font-weight: bold;
+}
+.e{
+  @extend %span;
+}

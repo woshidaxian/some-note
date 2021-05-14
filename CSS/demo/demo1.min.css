@@ -1,0 +1,71 @@
+@charset "UTF-8";
+.item-1 { font-size: 11px; }
+
+.item-2 { font-size: 12px; }
+
+.item-3 { font-size: 13px; }
+
+.item-4 { font-size: 14px; }
+
+.a-1 { width: 11px; }
+
+.a-2 { width: 12px; }
+
+.a-3 { width: 13px; }
+
+.activ-icon { background-image: url("./../activ.png"); }
+
+.hover-icon { background-image: url("./../hover.png"); }
+
+.visited-icon { background-image: url("./../visited.png"); }
+
+h1 { font-size: 1em; }
+
+h2 { font-size: 2em; }
+
+h3 { font-size: 3em; }
+
+.item-8 { width: 16em; }
+
+.item-7 { height: 21em; }
+
+.item-6 { width: 12em; }
+
+.item-5 { height: 15em; }
+
+.item-4 { width: 8em; }
+
+.item-3 { height: 9em; }
+
+.item-2 { width: 4em; }
+
+.item-1 { height: 3em; }
+
+a { color: #fff; width: 1000px; }
+
+a:hover { color: red; font-size: 11px; height: 10px; }
+
+a:active { color: blue; }
+
+span, .span1 { color: orange; height: 100px; }
+
+.span1 { font-size: 20px; }
+
+.g { border-bottom-left-radius: 10px; border-bottom-right-radius: 20px; border-top-left-radius: 50px; }
+
+.gg { color: "#fff"; }
+
+.gg:hover { color: "#eee"; }
+
+.gg:visited { color: "#aaa"; }
+
+.ggg { color: "orange"; }
+
+.ggg:hover { color: "blue"; }
+
+.ggg:visited { color: "red"; }
+
+.c { font-weight: bold; font-family: '楷体'; font-size: 20px; }
+
+.e { font-size: 20px; font-weight: bold; }
+/*# sourceMappingURL=demo1.min.css.map */
