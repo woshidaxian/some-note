@@ -13,7 +13,7 @@ nested--嵌套
 
 # 变量用法  父选择器标识符 & 
 !global可将块内变量提升为全局变量
-```
+```scss
 $p1color: orange;
 a {
   color: #fff;
@@ -31,7 +31,7 @@ span{
 }
 ```
 # 属性嵌套
-```
+```scss
 .c{
   font: {
     weight: bold;
@@ -47,7 +47,7 @@ span{
 
 # 混合器@mixin
 方面在不同地方共享样式
-```
+```scss
 @mixin d {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 20px;
@@ -59,7 +59,7 @@ span{
 ```
 
 # 混合器传参 @mixin($a){color:$a}
-```
+```scss
 @mixin dd($a,$b,$c){
   color: $a;
   &:hover{
@@ -77,7 +77,7 @@ span{
 }
 ```
 # 选择器继承CSS  @extend
-```
+```scss
 span{
   color: $p1color;
   $width: 100px;
@@ -89,7 +89,7 @@ span{
 }
 ```
 # 占位符选择器%
-```
+```scss
 %span{
   font-size: 20px;
   font-weight: bold;
@@ -99,7 +99,7 @@ span{
 }
 ```
 编译后结果：
-```
+```scss
 .e { font-size: 20px; font-weight: bold; }
 ```
 # 支持运算 + - * / % == !=
@@ -109,8 +109,8 @@ span{
 $width/2    true
 5px + 8px/2px   true
 
-# @for 循环  through [1,10]   to[1,10)
-```
+# @for 循环  through[1,10]   to[1,10)
+```scss
 @for $i from 1 through 10 {
   .item-#{$i}{
     font-size: #{$i+10}px;
@@ -119,7 +119,7 @@ $width/2    true
 ```
 # @each $var in <list>
 单参数
-```
+```scss
 @each $a in activ, hover, visited {
   .#{$a}-icon {
     background-image: url('./../#{$a}.png');
@@ -127,7 +127,7 @@ $width/2    true
 }
 ```
 多参数
-```
+```scss
 @each $header,$size in (h1:1em,h2:2em,h3:3em) {
   #{$header} {
     font-size: $size;
@@ -135,7 +135,7 @@ $width/2    true
 }
 ```
 # @while循环
-```
+```scss
 $aa: 8;  
 @while $aa > 0{
   @if $aa % 2 == 0 {
@@ -151,7 +151,7 @@ $aa: 8;
 }
 ```
 # 函数指令 @function
-```
+```scss
 @function fun($n){
   @return $n * 100px
 }
