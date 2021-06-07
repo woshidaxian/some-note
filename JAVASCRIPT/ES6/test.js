@@ -10,9 +10,10 @@ function outSuccess(a){
 }
 
 // let a = new Set(['a', 'a', 'b', 'c'])
-// // a.forEach(item => {
-// //   outSuccess(item)
-// // })
+// a.forEach(item => {
+//   outSuccess(item)
+// })
+// out(a)
 // out([...a].join(''))
-let [ flag = true ] = [false]
-out(flag)
+// let [ flag = true ] = [1]
+// out(flag)

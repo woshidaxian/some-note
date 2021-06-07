@@ -32,3 +32,6 @@ document.location.reload()
 ```
 
 # XMLHttpRequest对象
+
+# typeof与instanceof
+typeof可以返回一个数据的类型，但是null、array、object都会返回object，这是typeof的局限
