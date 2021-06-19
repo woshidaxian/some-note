@@ -85,14 +85,71 @@ function outSuccess(a){
 // a.name = 'hwg'
 // a.name = 'hwg'
 // out(a.name)
-let a = [1,2]
-let b = [3,4]
-let c = [5,6]
+// let a = [1,2]
+// let b = [3,4]
+// let c = [5,6]
 // let d = a.concat(b,c)
+// let g = ['我','爱','你']
 // for (let i of d){
 //   out(i)
 // }
-Array.prototype.join_hwg = function(a) {
-  console.log(this)
-}
-a.join_hwg('1')
+// Array.prototype.join_hwg = function(a) {
+//   console.log(this)
+// }
+// a.join_hwg('1')
+// console.log(a.join('-'))
+// console.log(d)
+// function sortNumber(a,b){
+//   return b-a;
+// }
+// console.log(d.sort((a,b)=> b-a))
+// console.log(d.splice(3,0,34))
+// console.log(g.toLocaleString())
+// console.log(g.toString())
+// console.log(d.unshift(1,2,3,5))
+// out(d.valueOf()===d)
+// let a = new Boolean(true)
+// console.log(typeof(a))
+// class Car{
+//   constructor(a){
+//     this.carName = a
+//   }
+// }
+// myCar = new Car('BWM')
+// // console.log(myCar.carName)
+// let myDate = new Date()
+// console.log(myDate.Date())
+// out(Math.exp(1))
+// out(Math.E)
+// out(Math.max(23,34))
+// let a = 1234
+// out(Number.POSITIVE_INFINITY)
+// out(a)
+// out(a.toPrecision(8))
+// let a = 'asfasfsada'
+// let b = String('asdsdasd')
+// let c = new String('sdagrhds')
+// out(b.length)
+// out(a.link('http://'))
+// out(a.substring(2,3))
+// out(b instanceof(String))
+// function Person() {
+  
+// }
+// Person.prototype.name = 'hwg'
+// let p1 = new Person()
+// let p2 = new Person()
+// console.log(Person.prototype.__proto__.constructor)
+// console.log(p2.name)
+// console.log(p1.__proto__.__proto__)
+// function Person(name){
+//   this.name = name
+// }
+// Person.prototype.eat = function(){
+//   console.log(this.name+' is eatting !')
+// }
+// let p1 = new Person('hwg')
+// p1.eat()
+// console.log(p1.__proto__) // 指向对象的原型，即Person
+// console.log(Person.prototype) // 该函数的原型,
+// console.log(Person.prototype.constructor) //指向构造函数
