@@ -67,7 +67,7 @@ function outSuccess(a){
 // let a = '${who} are ${year} old, He/She is from ${city}'
 // let reg = /\$\{(.+?)\}/g
 // out(a.replace(reg,(a,b,c,d) =>{
-//   // console.log(a,b,c,d)
+//   console.log(d)
 //   return obj[b]
 // }))
 //电话号码
@@ -153,3 +153,16 @@ function outSuccess(a){
 // console.log(p1.__proto__) // 指向对象的原型，即Person
 // console.log(Person.prototype) // 该函数的原型,
 // console.log(Person.prototype.constructor) //指向构造函数
+// let a = 2;
+// let b = 2;
+// function fnn(){
+//   if(a==1){
+//     throw new Error(`hwg is`)
+//   }
+// }
+// fnn()
+// let reg = new RegExp(/^abc$/g)
+// out(RegExp.prototype.__proto__)
+function fnn(){
+  var a = 0;
+}

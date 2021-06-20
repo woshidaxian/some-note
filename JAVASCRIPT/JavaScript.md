@@ -86,7 +86,8 @@ global 是否具有标志g
 ignoreCase 是有具有标志i  
 lastIndex 一个整数，标示开始下一次匹配的字符位置  
 multiline 是否具有标志m  
-source 正则表达式源文本  
+source 正则表达式源文本
+flags
 
 RegExp对象方法  
 compile() 编译正则表达式或改写  
@@ -574,3 +575,7 @@ console.log(p1.__proto__) // 指向对象的原型，即Person
 console.log(Person.prototype) // 该函数的原型,
 console.log(Person.prototype.constructor) //指向构造函数
 ```
+
+# 闭包
+闭包就是能够读取其它函数内部的变量的函数，或者说定义在一个函数内部的函数
+作用：一个是前面提到的可以读取函数内部的变量，另一个就是让这些变量的值始终保持在内存中。
