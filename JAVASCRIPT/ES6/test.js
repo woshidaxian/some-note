@@ -1,14 +1,3 @@
-const { red } = require('chalk');
-const chalk = require('chalk');
-function out(a){
-  console.log(a)
-}
-function outError(a){
-  console.log(chalk.red(a))
-}
-function outSuccess(a){
-  console.log(chalk.green(a))
-}
 
 // let a = new Set(['a', 'a', 'b', 'c'])
 // a.forEach(item => {
@@ -165,4 +154,11 @@ function outSuccess(a){
 // out(RegExp.prototype.__proto__)
 function fnn(){
   var a = 0;
+  return function(){
+    a = a +1
+    return a
+  }
 }
+var a = fnn()
+a() // 1
+a() // 2
