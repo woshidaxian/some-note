@@ -152,13 +152,69 @@
 // fnn()
 // let reg = new RegExp(/^abc$/g)
 // out(RegExp.prototype.__proto__)
-function fnn(){
-  var a = 0;
-  return function(){
-    a = a +1
-    return a
-  }
-}
-var a = fnn()
-a() // 1
-a() // 2
+// function fnn(){
+//   var a = 0;
+//   return function(){
+//     a = a +1
+//     return a
+//   }
+// }
+// var a = fnn()
+// a() // 1
+// // a() // 2
+// let a = '0b111'
+// console.log(Number.isFinite(a))
+// let a = 2
+// a **=3
+// console.log(a)
+// function fnn(x,y=1){
+//   console.log(x,y)
+//   console.log()
+// }
+// fnn(1)
+// let a = [1,4,2,6,8,-1,-9]
+// let b = a.find((value,index,arr)=>{
+//   return value < 0
+// })
+// console.log(b)
+// let obj = {
+//   name: 'hwg',
+//   age: 24,
+//   city: 'HZ'
+// }
+// for (x in obj){
+//   console.log(x)
+// }
+// class Person{
+//   constructor(name,age){
+//     Object.assign(this,{name,age})
+//   }
+// }
+// Object.assign(Person.prototype,{
+//   getName(){
+//     console.log(this.name)
+//   },
+//   setName(name) {
+//     this.name = name
+//   }
+// })
+// let m = new Map()
+// let o = {name: 'hwg',age:'24'}
+// m.set(o,'Hello World!')
+// console.log(m.get(o))
+// let person = {
+//   name: 'HWG',
+//   age: 24,
+//   city: 'HZ'
+// }
+// person = new Proxy(person,{
+//   get(target,key){
+//     console.log(`获取了${key}属性，值为${target[key]}`)
+//     return target[key]
+//   }
+// })
+// console.log(person.name)
+// console.log(person['age'])
+console.log(1+ '2'+'2');
+console.log(+'2');
+console.log('A'-'B'+'2')
