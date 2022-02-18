@@ -149,6 +149,7 @@ a.sort((a,b)=>a-b)// 升序 a<b 表示是a在b前
 a.sort((a,b)=>b-a)// 降序
 ```
 splice() => 删除指定个数的元素，也可在指定位置添加元素
+在删除遍历的数组时小心下标错乱
 ```js
 splice(-1) //删除并返回最后一个元素
 splice(3,1) //删除并返回从位置3开始的1个元素
@@ -591,3 +592,10 @@ var a = fnn()
 a() // 1
 a() // 2
 ```
+
+# getBoundingClientRect
+getBoundingClientRect用于获取某个元素相对于视窗的位置集合。集合中有top, right, bottom, left等属性
+rectObject.top：元素上边到视窗上边的距离;
+rectObject.right：元素右边到视窗左边的距离;
+rectObject.bottom：元素下边到视窗上边的距离;
+rectObject.left：元素左边到视窗左边的距离;
