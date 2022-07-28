@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .cat-box{
+      width: 300px;
+      height: 300px;
+      border: 1px solid red;
+      background-image: url('https://github-imglib-1255459943.cos.ap-chengdu.myqcloud.com/assets/img/kitty2.svg');
+      position: fixed!important;
+      right: 10px;
+      bottom: 10px;
+      position: relative;
+      height: 297px;
+      width: 507.5px;
+      margin-top: 2em;
+      margin-left: 2em;
+      z-index: 10;
+      transform: scale(.4);
+      -webkit-animation: sprite-animation 1.2s steps(16) infinite;
+      animation: sprite-animation 1.2s steps(16) infinite;
+    }
+
+    @keyframes sprite-animation{
+      0% {
+          background-position: 0 0;
+      }
+      100% {
+          background-position: -8120px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cat-box">
+
+  </div>
+</body>
+</html>
