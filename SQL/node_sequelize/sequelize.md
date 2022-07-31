@@ -43,6 +43,37 @@ const sequelize = new Sequelize('database', 'username', 'password', {
     protocol: 'string', /* default tcp; The protocol of the relational database. 链接协议 */
     define: 'object', /* default options for model definitions. see Model.init. */
     query: 'object', /* default options for sequelize.query */
-    schema: 'string, /*  */
+    schema: 'string, /* A schema to use */
+    set: 'object', /* Default options for sequelize.set */
+    sync: 'object', /* Default options for sequelize.sync */
+    timezone: 'string', /* The timezone used when converting a date from the database into a JavaScript date */
+    clientMinMessages: 'string|boolean', /* The PostgreSQL client_min_messages session parameter. Set to false to not override the database's default. */
+    standardConformingStrings: 'boolean', /* default true; The PostgreSQL standard_conforming_strings session parameter. Set to false to not set the option. WARNING: Setting this to false may expose vulnerabilities and is not recommended! */
+    logging: 'Function', /* default console.log; A function that gets executed every time Sequelize would log something. Function may receive multiple parameters but only first one is printed by console.log. To print all values use (...msg) => console.log(msg) */
+    benchmark: 'boolean', /* default false; Pass query execution time in milliseconds as second argument to logging function (options.logging). */
+    omitNull: 'boolean', /* default false; A flag that defines if null values should be passed as values to CREATE/UPDATE SQL queries or not.*/
+    native: 'boolean', /* default false; A flag that defines if native library shall be used or not. Currently only has an effect for postgres*/
+    replication: 'boolean', /* default false; Use read / write replication. To enable replication, pass an object, with two properties, read and write. Write should be an object (a single server for handling writes), and read an array of object (several servers to handle reads). Each read/write server can have the following properties: host, port, username, password, database*/
+    pool: {
+        max: 'number', /* default 5; Maximum number of connection in pool */
+        min: 'number', /* default 0; Minimum number of connection in pool */
+        idle: 'number', /* default 10000 The maximum time, in milliseconds, that a connection can be idle before being released. */
+        acquire: 'number', /* default 60000 The maximum time, in milliseconds, that pool will try to get connection before throwing error */
+        evict: 'number', /* default 1000 The time interval, in milliseconds, after which sequelize-pool will remove idle connections. */
+        validate: 'Function', /* A function that validates a connection. Called with client. The default function checks that client is an object, and that its state is not disconnected */
+        maxUses: 'number', /* default Infinity The number of times a connection can be used before discarding it for a replacement, used for eventual cluster rebalancing. */
+    }, /* sequelize connection pool configuration */
+    quoteIdentifiers: 'boolean', /* default true; Set to false to make table names and attributes case-insensitive on Postgres and skip double quoting of them. WARNING: Setting this to false may expose vulnerabilities and is not recommended! */
+    transactionType: 'string', /* default DEFERRED; Set the default transaction type. See Sequelize.Transaction.TYPES for possible options. Sqlite only. */
+    isolationLevel: 'string', /* Set the default transaction isolation level. See Sequelize.Transaction.ISOLATION_LEVELS for possible options. */
+    retry: {
+        match: 'Array', /* Only retry a query if the error matches one of these strings. */
+        max: 'number', /* How many times a failing query is automatically retried. Set to 0 to disable retrying on SQL_BUSY error. */
+    }, /* Set of flags that control when a query is automatically retried. Accepts all options for retry-as-promised. */
+    typeValidation: 'boolean', /* default false; Run built-in type validators on insert and update, and select with where clause, e.g. validate that arguments passed to integer fields are integer-like. */
+    operatorsAliases: 'object', /* String based operator alias. Pass object to limit set of aliased operators. */
+    hooks: 'object', /* An object of global hook functions that are called before and after certain lifecycle events. Global hooks will run after any model-specific hooks defined for the same event (See Sequelize.Model.init() for a list). Additionally, beforeConnect(), afterConnect(), beforeDisconnect(), and afterDisconnect() hooks may be defined here. */
+    minifyAliases: 'boolean', /* default false; A flag that defines if aliases should be minified (mostly useful to avoid Postgres alias character limit of 64) */
+    logQueryParameters: 'boolean', /* default false; A flag that defines if show bind parameters in log. */
 })
 ```
