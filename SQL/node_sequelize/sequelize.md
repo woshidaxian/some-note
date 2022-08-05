@@ -77,3 +77,15 @@ const sequelize = new Sequelize('database', 'username', 'password', {
     logQueryParameters: 'boolean', /* default false; A flag that defines if show bind parameters in log. */
 })
 ```
+
+## 测试连接
+使用authenticate()函数测试是否连接成功  
+默认情况下，sequelize将保持连接，并对所有的查询使用同一个连接，关闭可通过sequelize.close()方法，返回的是promise
+```javascript
+try{
+    await sequelize.authenticate()
+    console.log('connection success')
+} catch (e) {
+    console.error('connection error'+JSON.stringify(e))
+}
+```
