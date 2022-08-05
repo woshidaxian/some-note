@@ -215,6 +215,12 @@
 // })
 // console.log(person.name)
 // console.log(person['age'])
-console.log(1+ '2'+'2');
-console.log(+'2');
-console.log('A'-'B'+'2')
+// console.log(1+ '2'+'2');
+// console.log(+'2');
+// console.log('A'-'B'+'2')
+let a = "helloWorldHuangWeiGang"
+let reg = /[A-Z]/g
+let b = a.replace(reg, (a)=>{
+  return '-'+a.toLowerCase()
+})
+console.log(b)
