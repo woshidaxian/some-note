@@ -89,3 +89,5 @@ try{
     console.error('connection error'+JSON.stringify(e))
 }
 ```
+
+## 创建数据表模型
