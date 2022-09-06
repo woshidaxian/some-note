@@ -39,8 +39,24 @@ VUE_APP_BASE_API=本地地址
 须以VUE_APP、BASE_URL、NODE_ENV开头的变量才能通过 webpack.DefinePlugin 静态地嵌入到客户端侧的代码中。这是为了避免意外公开机器上可能具有相同名称的私钥
 
 # vue.config.js配置
+```javascript
+module.exports = {
+  // 配置
+}
+
+// 以下方法可以获得更好的提示，vue3
+const { defineConfig } = require('@vue/cli-service');
+module.exports = defineConfig({
+  // 选项
+})
+```
 publicPath: 默认为'/'，即部署项目包默认放在域名的根路径上，也可为空''或'./'，所有资源链接为相对路径，项目文件可放置在任意路径下  
 outputDir: 默认为'dist'，构建生产环境项目文件时的目录，npm run build / vue-cli-service build
 assetsDir: 默认''，放置生成的静态资源的目录（js、css、img、fonts）,该目录相对于outputDir
 indexPath: 默认'index.html'，指定生成的'index.html'的路径，相对于outputDir  
-productionSourceMap: 默认true，生产环境下是否需要source map，不需要可加快构建速度
+filenameHashing: true,  生成的静态资源的文件名中是否包含了 hash  
+pages: {}, 在 multi-page 模式下构建应用。每个“page”应该有一个对应的 JavaScript 入口文件。
+lintOnSave: boolean | 'warning' | 'default' | 'error'。设置为 true 或 'warning' 时，eslint-loader 会将 lint 错误输出为编译警告。默认情况下，警告仅仅会被输出到命令行，且不会使得编译失败；lintOnSave: 'default'。这会强制 eslint-loader 将 lint 错误输出为编译错误，同时也意味着 lint 错误将会导致编译失败；设置为 error 将会使得 eslint-loader 把 lint 警告也输出为编译错误，这意味着 lint 警告将会导致编译失败。  
+runtimeCompiler： false; 是否使用包含运行时编译器的 Vue 构建版本。会让你的应用额外增加 10kb 左右  
+transpileDependencies: false； 启用本选项，以避免构建后的代码中出现未转译的第三方依赖；boolean | Array<string | RegExp> 不过，对所有的依赖都进行转译可能会降低构建速度。如果对构建性能有所顾虑，你可以只转译部分特定的依赖：给本选项传一个数组，列出需要转译的第三方包包名或正则表达式即可。
+productionSourceMap: 默认true，生产环境下是否需要source map，不需要可加快构建速度  
