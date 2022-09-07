@@ -76,6 +76,8 @@ const sequelize = new Sequelize('database', 'username', 'password', {
     minifyAliases: 'boolean', /* default false; A flag that defines if aliases should be minified (mostly useful to avoid Postgres alias character limit of 64) */
     logQueryParameters: 'boolean', /* default false; A flag that defines if show bind parameters in log. */
 })
+
+
 ```
 
 ## 测试连接
@@ -95,7 +97,149 @@ try{
 - 扩展Model并调用init(attributes, options)
 模型定义后，可通过其模型名称在sequelize.models中使用该模型
 sequelize.define()在内部调用Model.init，因此两种方法本质上等效的
+```javascript
+// sequelize.define()
+const User = sequelize.define('User',{
+    firstName: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    lastName: {
+        type: DataTypes.STRING
+    }
+},{
+    sequelize, // 传递连接实例
+    modelName: 'User',
+    tableName: 'Users'
+})
+console.log(User === sequelize.models.User); // true
+
+// 扩展Model并调用init()
+class User extends Model{}
+User.init({
+    ...
+},{
+    sequelize, // 传递连接实例
+    modelName: 'User',
+    tableName: 'Users'
+})
+```
 
 **公共类字段注意事项：**
 1. 添加与模型属性之一同名的公共类字段会出现问题，Sequelize 为通过 Model.init 定义的每个属性添加一个 getter 和一个 setter. 添加公共类字段将隐藏那些 getter 和 setter，从而阻止对模型的实际数据的访问
 2. 在TypeScript中，您可以使用declare关键字添加键入信息，而无需添加实际的公共类字段
+```javascript
+// 错误的
+class User extends Model{
+    id; // 这里公共类字段
+    otherPublicField;
+}
+User.init({
+    id: {
+        // 不得与公共类字段同名
+    }
+},{...})
+
+// 正确的（typescript）
+class User extends Model{
+    declare id: number; // 使用declare关键字键入信息,而非实际申明公共类字段
+}
+
+```
+
+## 表名推断
+- 在默认情况下，Sequelize会将模型名称（modelName）的复数作为表的名称
+当然也可以通过配置改变上述情况  
+使用freezeTableName: true;停止Sequelize自行自动复数化，此时modelName = tableName
+- 在配置了表名（tableName）后，则直接使用配置项参数值
+
+## 模型同步
+- 当代码中的模型结构与数据库中的不一致时会出现这种情况
+- 更改发生在数据库端，而非JavaScript端的模型
+- 单个模型或者是sequelize连接实例同样拥有以下方法，区别在于效果是局部的还是全局的。
+```javascript
+User.sync() // 如果表不存在,则创建该表(如果已经存在,则不执行任何操作)
+User.sync({ force: true }) // 将创建表,如果表已经存在,则将其首先删除
+User.sync({ alter: true }) // 这将检查数据库中表的当前状态(它具有哪些列,它们的数据类型等),然后在表中进行必要的更改以使其与模型匹配.
+sequelize.sync({alter: true}) // 一次同步所有模型
+```
+
+## 时间戳
+- createAt、updateAt在默认情况会被添加至模型中，并且由Sequelize自动进行管理
+- timestamps: false 配置项则可禁止上面的行为
+- 两者也可做分别配置，但不论开启哪一项，都不要忘了配置timestamps: true
+```javascript
+{
+    timestamps: true,
+    createAt: false,
+    updateAt: 'updateTimeStamps'
+}
+```
+
+## 模型字段配置项
+- 如果关于列的唯一指定内容是其数据类型,则可以缩短语法 name: DataTypes.STRING
+- 默认情况，Sequelize 假定列的默认值为 NULL
+
+```javascript
+class User extends Model{}
+User.init({
+    XXX: {
+        type: DataTypes.xxx, // 数据类型
+        defaultValue: '',    // 默认值
+        allowNull: true,     // 默认true
+    }
+},{...})
+```
+
+## 数据类型 DataTypes
+```javascript
+// 字符串
+const { DataTypes } = require('sequelize')
+DataTypes.STRING()       // VARCHAR(255)
+DataTypes.STRING(1234)   // VARCHAR(1234)
+DataTypes.STRING.BINARY  // VARCHAR BINARY
+DataTypes.TEXT           // TEXT
+DataTypes.TEXT('tiny')   // TINYTEXT
+
+// 布尔
+DataTypes.BOOLEAN        // TINYINT(1)
+
+// 数字
+DataTypes.INTEGER            // INTEGER
+DataTypes.BIGINT             // BIGINT
+DataTypes.BIGINT(11)         // BIGINT(11)
+
+DataTypes.FLOAT              // FLOAT
+DataTypes.FLOAT(11)          // FLOAT(11)
+DataTypes.FLOAT(11, 10)      // FLOAT(11,10)
+
+DataTypes.REAL               // REAL            仅 PostgreSQL.
+DataTypes.REAL(11)           // REAL(11)        仅 PostgreSQL.
+DataTypes.REAL(11, 12)       // REAL(11,12)     仅 PostgreSQL.
+
+DataTypes.DOUBLE             // DOUBLE
+DataTypes.DOUBLE(11)         // DOUBLE(11)
+DataTypes.DOUBLE(11, 10)     // DOUBLE(11,10)
+
+DataTypes.DECIMAL            // DECIMAL
+DataTypes.DECIMAL(10, 2)     // DECIMAL(10,2)
+
+// 在 MySQL 和 MariaDB 中,可以将数据类型INTEGER, BIGINT, FLOAT 和 DOUBLE 设置为无符号或零填充(或两者),如下所示：
+DataTypes.INTEGER.UNSIGNED
+DataTypes.INTEGER.ZEROFILL
+DataTypes.INTEGER.UNSIGNED.ZEROFILL
+// 你还可以指定大小,即INTEGER(10)而不是简单的INTEGER
+// 同样适用于 BIGINT, FLOAT 和 DOUBLE
+
+// 时间
+DataTypes.DATE       // DATETIME 适用于 mysql / sqlite, 带时区的TIMESTAMP 适用于 postgres
+DataTypes.DATE(6)    // DATETIME(6) 适用于 mysql 5.6.4+. 支持6位精度的小数秒
+DataTypes.DATEONLY   // 不带时间的 DATE
+
+// UUID
+// 对于 UUID,使用 DataTypes.UUID. 对于 PostgreSQL 和 SQLite,它会是 UUID 数据类型;对于 MySQL,它则变成CHAR(36). Sequelize 可以自动为这些字段生成 UUID,只需使用 DataTypes.UUIDV1 或 DataTypes.UUIDV4 作为默认值即可：
+{
+  type: DataTypes.UUID,
+  defaultValue: DataTypes.UUIDV4 // 或 DataTypes.UUIDV1
+}
+```
