@@ -17,7 +17,7 @@ npm install mysql2
 
 ## 建立连接
 通过将连接参数分别传递到 Sequelize 构造函数或通过传递一个连接 URI 来完成（mysql采用传递参数）
-```
+```javascript
 const { Sequelize } = require('sequelize')
 
 # sqlite/postgres
@@ -43,7 +43,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
     protocol: 'string', /* default tcp; The protocol of the relational database. 链接协议 */
     define: 'object', /* default options for model definitions. see Model.init. */
     query: 'object', /* default options for sequelize.query */
-    schema: 'string, /* A schema to use */
+    schema: 'string', /* A schema to use */
     set: 'object', /* Default options for sequelize.set */
     sync: 'object', /* Default options for sequelize.sync */
     timezone: 'string', /* The timezone used when converting a date from the database into a JavaScript date */
