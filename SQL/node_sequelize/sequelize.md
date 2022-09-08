@@ -186,9 +186,24 @@ User.init({
     XXX: {
         type: DataTypes.xxx, // 数据类型
         defaultValue: '',    // 默认值
-        allowNull: true,     // 默认true
+        allowNull: true,     // 默认true，是否允许为NULL
         primarykey: true,    // 默认false，主键
-        unique: true,        // 默认false，
+        unique: true,        // 默认false，唯一约束 string | boolean
+        autoIncrement: true, // 默认false，自动增长
+        field: String,       // 指定列名称，即不以申明的模型列名称作为实际数据库列名称
+        references: {        // 外键
+            // 这是对另一个模型的参考
+            model: Bar,
+            // 这是引用模型的列名
+            key: 'id',
+            // 使用 PostgreSQL,可以通过 Deferrable 类型声明何时检查外键约束.
+            deferrable: Deferrable.INITIALLY_IMMEDIATE
+            // 参数:
+            // - `Deferrable.INITIALLY_IMMEDIATE` - 立即检查外键约束
+            // - `Deferrable.INITIALLY_DEFERRED` - 将所有外键约束检查推迟到事务结束
+            // - `Deferrable.NOT` - 完全不推迟检查(默认) - 这将不允许你动态更改事务中的规则
+        },
+        comment: String,     // 注释
     }
 },{...})
 ```
