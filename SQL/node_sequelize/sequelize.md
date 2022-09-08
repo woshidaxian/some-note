@@ -187,6 +187,8 @@ User.init({
         type: DataTypes.xxx, // 数据类型
         defaultValue: '',    // 默认值
         allowNull: true,     // 默认true
+        primarykey: true,    // 默认false，主键
+        unique: true,        // 默认false，
     }
 },{...})
 ```
@@ -243,3 +245,4 @@ DataTypes.DATEONLY   // 不带时间的 DATE
   defaultValue: DataTypes.UUIDV4 // 或 DataTypes.UUIDV1
 }
 ```
+
