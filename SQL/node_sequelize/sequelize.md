@@ -261,3 +261,52 @@ DataTypes.DATEONLY   // 不带时间的 DATE
 }
 ```
 
+## 模型实例方法
+- 模型虽然是个类，但是不应使用new关键字来创建实例
+- 利用模型作为类，添加自定义实例或类级别的方法
+- build、save、create、toJSON、set、update、destroy、reload、increment、decrement
+```javascript
+class User extends Model{
+    createUser(){
+        console.log(this.name)
+    },
+    static changeUserInfo(){
+
+    }
+}
+User.init({
+    name: DataTypes.TEXT,
+    age: DataTypes.INTEGER
+})
+
+// 通过build创建实例，仅存在于内存，不会同步于数据库
+const hwg = User.build({name: 'HWG'})
+console.log(hwg.name) // HWG
+
+// 通过save，将实例存储于数据库
+await hwg.save();
+
+// build + save = create，
+const hwg = User.create({name: 'HWG'});
+
+// toJSON() 替代console.log(hwg) & JSON.stringify(hwg)
+console.log(hwg.toJSON());
+
+// 更新实例
+hwg.name = 'hwg';
+hwg.set({
+    name: 'hwg',
+    age: 18
+})
+
+// update 用于更新一组特定的字段，直接保存至数据库
+// destroy 删除实例，同步至数据库
+// reload 重新加载实例，从数据库获取
+// increment / decrement 为了解决递增递减实例的值不会遇到并发问题
+hwg.increment('age', { by: 2 })
+hwg.increment({
+    'age': 2,
+    'cash': 100
+})
+hwg.increment(['age', 'cash'], { by: 2 })
+```
