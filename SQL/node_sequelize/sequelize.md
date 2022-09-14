@@ -310,3 +310,38 @@ hwg.increment({
 })
 hwg.increment(['age', 'cash'], { by: 2 })
 ```
+
+## 模型查询（基础）
+1. INSERT 查询
+Model.create() = Model.build() + instance.save()
+可通过配置create方法中的属性，允许将模型限制为具体某些字段更新至最新值
+```javascript
+const user = User.create({
+    username: 'hwg',
+    age: 12,
+    isAdmin: true
+},{fields: ['username']})
+// 假设 isAdmin 的默认值为false
+console.log(user.username) // hwg
+console.log(user.isAdmin)  // false
+```
+2. SELECT 查询
+    - findAll 方法从数据库中读取整个表 => SELECT * from ...
+    ```javascript
+    const users = await User.findAll()
+    // 查询全部属性
+    const users = await User.findAll({
+        attributes: ['age', 'username', ['isAdmin', 'admin']]
+        // 通过嵌套数组来重命名属性
+        attributes: {
+            include: [
+                [sequelize.fn('count', sequelize.col('hats'), 'n_hats')]
+            ], // 包含某些属性，使用聚合函数时
+            exclude: [], // 去除某些属性
+        }
+    })
+    // 查询某些属性
+    ```
+    - 配合 WHERE 子句
+    
+
