@@ -1,5 +1,5 @@
 # 常用命令
-```
+```js
 // 启动项目并自定义项目名称
 pm2 start [file] [--name] <app-name>
 
