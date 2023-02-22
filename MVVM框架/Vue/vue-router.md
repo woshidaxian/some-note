@@ -165,6 +165,19 @@ scrollBehavior -> 滚动行为
 parseQuery / stringifyQuery -> 莫名奇妙，提供自定义查询字符串的解析/反解析函数。覆盖默认行为
 fallback -> 当浏览器不支持 history.pushState 控制路由是否应该回退到 hash 模式。默认值为 true。
 
+vue3 组合式API 参照以下
+```js
+import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
+
+const router = createRouter({
+  history: createWebHistory(), // HTML5  注意服务器配置回退路由
+  history: createWebHashHistory(), // Hash
+  routes: [
+    //...
+  ],
+})
+```
+
 ## router实例属性
 router.app -> 配置了router的Vue根实例
 router.mode -> 路由使用的模式
@@ -172,20 +185,20 @@ router.currentRoute -> 当前路由对应的路由信息对象
 router.START_LOCATION -> 以路由对象的格式展示初始路由地址
 
 ## router 实例方法
-router.beforeEach
-router.beforeResolve
-router.afterEach
-router.push
-router.replace
-router.go
-router.back
-router.forward
-router.getMatchedComponents
-router.addRoutes 废弃
-router.addRoute
-router.getRoutes
-router.onReady
-router.onError
+router.beforeEach(to, from) 前置守卫，返回false可取消跳转  
+router.beforeResolve(to) 全局守卫，不影响跳转，与前置守卫在触发节点上相似  
+router.afterEach(to, from) 后置守卫，不影响路由跳转  
+router.push  
+router.replace  
+router.go  
+router.back  
+router.forward  
+router.getMatchedComponents  
+router.addRoutes 废弃  
+router.addRoute  
+router.getRoutes  
+router.onReady  
+router.onError  
 
 ## 路由对象属性
 $route.path -> 当前路径，总是解析为绝对路径
@@ -201,7 +214,21 @@ $route.redirectedFrom -> 如果存在重定向，即为重定向来源的路由�
 this.$router -> router实例
 this.$route -> 当前激活的路由信息对象，只读
 
-增加的组件配置选项
-beforeRouteEnter
-beforeRouteUpdate
-beforeRouteLeave
+增加的组件配置选项，像生命周期一样在组件内使用
+beforeRouteEnter 注意此时实例未创建，无法读取this，支持给 next 传递回调的唯一守卫     on
+beforeRouteUpdate  onBeforeRouteUpdate(vue3)  
+beforeRouteLeave 用来预防用户在还未保存修改前突然离开，可通过返回false取消  onBeforeRouteLeave(vue3)   
+
+## 完整的导航解析过程
+1. 导航被触发
+2. 在失活的组件里调用beforeRouteLeave
+3. 调用全局的beforeEach守卫
+4. 在重用的组件里调用beforeRouteUpdate守卫
+5. 在路由配置里调用beforeEnter
+6. 解析异步路由组件
+7. 在被激活的组件里调用beforeRouteEnter
+8. 调用全局的beforeResolve守卫
+9. 导航被确认
+10. 调用全局的afterEach钩子
+11. 触发DOM更新
+12. 调用beforeRouteEnter守卫中传给next的回调函数，组件实例会被当做参数传入
