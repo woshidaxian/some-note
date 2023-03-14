@@ -1,3 +1,5 @@
 - [Moment.js](./MomentJs.md) 时间处理类库
 - [p5.js]() 2D画图工具库基于canvas
 - [svg.js]() JavaScript画SVG图
+- [nodegit](./Nodegit.md) 基于Node操作git
+- [ssh2-sftp-client]() SFTP
