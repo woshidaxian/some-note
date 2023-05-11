@@ -77,3 +77,8 @@ text-overflow: ellipsis
 - **flex-grow** 子元素按比例分配剩余空间
 - **flex-shrink** 超出父元素的子元素按比例减去
 - **flex** flex-grow, flex-shrink, flex-basis 的简写
+
+
+## CSS变量
+- var
+- attr
