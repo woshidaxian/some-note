@@ -232,3 +232,16 @@ beforeRouteLeave 用来预防用户在还未保存修改前突然离开，可通
 10. 调用全局的afterEach钩子
 11. 触发DOM更新
 12. 调用beforeRouteEnter守卫中传给next的回调函数，组件实例会被当做参数传入
+
+
+## 滚动行为
+scrollBehavior (to, from, savedPosition)
+只在支持 history.pushState 的浏览器中可用
+返回一个Promise可延迟滚动
+
+## 动态路由
+router.addRoute() 添加路由
+router.removeRoute() 删除一个路由
+
+router.hasRoute() 检查路由是否存在
+router.getRoutes() 获得相比配的所有路由记录一个数组
