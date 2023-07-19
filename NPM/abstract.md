@@ -3,3 +3,5 @@
 - [svg.js]() JavaScript画SVG图
 - [nodegit](./Nodegit.md) 基于Node操作git
 - [ssh2-sftp-client]() SFTP
+- [sharp](./Sharp.js) 图像处理
+- [images](./Images.js) 图像处理，不及上面这个
