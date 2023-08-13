@@ -60,3 +60,12 @@ lintOnSave: boolean | 'warning' | 'default' | 'error'。设置为 true 或 'warn
 runtimeCompiler： false; 是否使用包含运行时编译器的 Vue 构建版本。会让你的应用额外增加 10kb 左右  
 transpileDependencies: false； 启用本选项，以避免构建后的代码中出现未转译的第三方依赖；boolean | Array<string | RegExp> 不过，对所有的依赖都进行转译可能会降低构建速度。如果对构建性能有所顾虑，你可以只转译部分特定的依赖：给本选项传一个数组，列出需要转译的第三方包包名或正则表达式即可。
 productionSourceMap: 默认true，生产环境下是否需要source map，不需要可加快构建速度  
+crossorigin: 设置生成的HTML中link、script标签的crossorigin属性，直接在index.html中引入的除外  
+integrity：忽略，不常用  
+configureWebpack：额外的webpack配置  
+chainWebpack：允许对内部的 webpack 配置进行更细粒度的修改  
+devServer: {
+  proxy: {
+
+  } | 'http://'
+} 配置代理
