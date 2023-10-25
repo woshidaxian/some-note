@@ -160,6 +160,15 @@ toLocaleString() => 有点复杂了，把数组转换为本地数组
 unshift() => 向数组的开头添加一个或更多个元素，返回数组长度
 valueOf() => 返回数组对象的原始值
 
+every() => 全部返回true，则方法返回true
+some() => 某一项返回true，即返回true
+filter() => 返回符合筛选条件的元素
+forEach() => 无返回
+map() => 每一项都有返回
+reduce() => [].reduce((prev, cur, index, arr))
+  prev: 为上一次函数的返回值
+  cur: 当前值
+
 ## JS Boolean
 属性：
 constructor => 返回对创建此对象的 Boolean 函数的引用
