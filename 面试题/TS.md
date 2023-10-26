@@ -1,0 +1,1 @@
+## ts的any和unknown的区别？type和interface的区别？
