@@ -83,7 +83,7 @@ Object.defineProperty 用于定义和配置数据属性，包括属性的可写�
  - errorCaptured（捕获一个来自子孙组件的错误时被调用）
 
 ### eventBus是什么，什么作用？（node内置EventEmitter）
-一种事件总线或事件发布/订阅框架  
+一种事件总线或事件发布/订阅框架，软件设计模式，用于简化组件之间的通信  
 用于在软件应用程序中实现组件之间的解耦通信。它允许不同部分的代码（通常是不同的模块或组件）以一种松散耦合的方式进行通信，而不需要它们直接引用或依赖于彼此。EventBus模式的核心思想是将消息发送者（事件的发布者）和消息接收者（事件的订阅者）解耦，从而提高代码的可维护性和扩展性。
 
 ### computed和watch的用法与区别？原理？watch如何实现深度监听？
@@ -104,25 +104,89 @@ v-bing、v-model、v-if、v-show、v-else、v-for、v-on（@）、v-once
 全局注册通过Vue.directive，局部注册通过directive选项
 
 ### 什么是虚拟DOM？有什么好处？
+虚拟DOM是使用JS对象描述真实DOM结构的树形数据结构  
+用于提高前端性能，虚拟DOM因为是JS层面数据的计算，效率远高与JS操作真实DOM  
+同其它相同采用虚拟DOM实现的框架可实现跨平台开发，比如react
 
 ### vue2怎么实现对数组和对象的监听的？
+- 数组
+  直接使用索引赋值或修改数组的长度，可能无法检测到变化  
+  建议使用push、pop、shift、unshift、splice或者使用Vue.set来更新数组元素。复杂的还能通过深拷贝，重新给数组赋值
+  
+- 对象
+  对于修改嵌套的对象属性，将不会触发响应式，只对顶层属性具有响应式  
+  通过Vue.set方法可实现响应式
+
+- vue3中采用proxy实现响应式，功能更强大，可以拦截的操作更多，同时对嵌套对象会进行递归遍历并为它们设置proxy代理，使他们都具有响应式
 
 ### vue中的几类watcher
+ - 渲染 Watcher：渲染 Watcher 是最常见的 Watcher 类型。它负责监视组件模板中的数据依赖，当数据变化时，渲染 Watcher 将重新渲染组件视图。每个组件实例都有一个渲染 Watcher  
+ - 计算属性 Watcher：计算属性 Watcher 监视计算属性的依赖，只有在相关依赖发生变化时才会重新计算和缓存计算属性的值  
+ - 侦听器 Watcher：侦听器 Watcher 用于监视数据变化并执行自定义的回调函数。你可以使用 watch 选项创建侦听器 Watcher
+ - 数组变异方法 Watcher：这些 Watcher 监视对数组的变异方法（如 push、pop、shift、unshift、splice 等）的调用，以便在数组发生变化时触发视图更新。这也是vue2中实现对数组响应式的办法  
+ - 自定义 Watcher：通过原生方法，自行创建数据的监听
 
 ### keep-live原理？什么？
+keep-alive是vue中的内置组件，能在组件切换过程中将状态保留在内存中，防止重复渲染DOM  
+原理在于维护一个缓存列表，根据激活和停用状态来动态管理子组件的渲染和状态。这有助于提高应用程序的性能和用户体验，特别是在需要频繁切换页面或组件时。  
+被keep-live包裹的组件会被缓存起来，当组件被切换到活动状态，它会重新激活缓存的子组件。当组件不再活动时，子组件将被停用。  
+当子组件被激活时，<keep-alive> 会检查缓存中是否有匹配的子组件实例。如果有匹配的子组件实例，它将从缓存中取出并重新渲染，而不是创建新的实例  
+在keep-live中可实现的生命周期钩子有activated&deactivated，以及路由钩子beforeRouteEnter
 
 ### v-for和v-if为什么不建议同时使用？v-for中key的作用？
+每次渲染都会先循环再进行条件判断，带来性能方面的浪费（vue2中 v-for优先级大于v-if）
+设置key值，便于diff算法进行优化
 
 ### vue导航守卫有哪些？
+ - 全局前置守卫：beforeEach（在路由跳转前被调用）、beforeResolve（在导航被确认前，解析异步路由组件）
+ - 全局后置守卫：afterEach（在路由跳转完成后被调用），通常完成一些如日志记录或页面追踪
+ - 路由独享的守卫：beforeEnter（在路由配置中定义的单个路由上，可用于执行特定路由的前置逻辑）
+ - 组件内的守卫：
+   - beforeRouteEnter（在被进入的组件内调用，允许你访问组件实例，但在组件实例化之前。）
+   - beforeRouteUpdate（在当前组件再次被导航到时调用，但参数的路由发生变化）
+   - beforeRouteLeave（在当前组件离开前被调用，通常用于阻止离开或提示用户保存未保存的数据。）
 
 ### 你是如何封装一个组件的？
-
-### 在vue项目中不使用框架，怎么封装？
+首先我会确定是否有必要封装成组件，根据它的在项目内的复用的可能性、通用性确定组件需不需要使用插槽等一些因素  
+然后我会确定这个组件的要实现的具体功能，然后确定需要传入的props以及往外需要发布的事件  
+我会对这个组件的出口和入口做注释，以及注释这个组件所实现的功能
+我还会根据这个组件是局部组件还是全局组件，放到相对应的文件里，全局组件通过main.js内组件批量自动注册，局部组件则现引现用
+require.context
 
 ### 父子组件生命周期执行顺序？
+父级beforeCreate => 父级created => 父级beforeMount => 子级beforeCreate => 子级created => 子级beforeMount => 子级mounted => 父级mounted
 
 ### mixins有几个生命周期
+同组件的生命周期  
+混入的对象可以包含任意生命周期钩子函数，因此 mixins 可以影响组件的生命周期钩子函数的执行顺序。如果多个 mixins 混入到一个组件中，它们的生命周期钩子函数将按照混入的顺序依次执行，最后执行组件内的钩子函数
 
 ### $router和$route的区别？
+$router是 Vue Router 实例，它用于处理路由的导航和跳转  
+通过 $router，你可以执行路由的编程式导航、push、replace、go等  
+$router 提供了整个路由系统的控制权，允许你在代码中进行路由导航，例如跳转到不同的路由页面  
+
+$route 是一个包含当前路由信息的对象，它提供了有关当前路由的详细信息，如路径、参数、查询参数、哈希、元信息等  
 
 ### 常用的事件修饰符？作用？
+ - 表单修饰符
+   1. v-model.lazy  延迟将用户输入内容更新至绑定的变量属性上，在change事件之后更新（光标离开）  
+   2. v-model.trim  自动过滤用户输入的首空格字符，而中间的空格不会过滤
+   3. v-model.number  自动将用户的输入值转为数值类型，但如果这个值无法被parseFloat解析，则会返回原来的值
+ - 事件修饰符
+   1. @click.stop 
+   2. @click.prevent
+   3. @click.self
+   4. @click.once
+   5. @click.capture
+   6. @click.passive
+   7. @click.native
+ - 鼠标按键修饰符
+   1. @click.left
+   2. @click.right
+   3. @click.middle
+ - 键盘修饰符
+   1. @keyup.keyCode[键码]、@keyup.enter、@keyup.tab（enter、tab、delete、space、esc、up、ctrl、alt、meta、shift）
+ - v-bind修饰符
+   1. v-bind.sync
+   2. v-bind.prop
+   3. v-bind.camel
