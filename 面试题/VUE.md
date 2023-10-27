@@ -173,13 +173,13 @@ $route 是一个包含当前路由信息的对象，它提供了有关当前路�
    2. v-model.trim  自动过滤用户输入的首空格字符，而中间的空格不会过滤
    3. v-model.number  自动将用户的输入值转为数值类型，但如果这个值无法被parseFloat解析，则会返回原来的值
  - 事件修饰符
-   1. @click.stop 
-   2. @click.prevent
-   3. @click.self
-   4. @click.once
-   5. @click.capture
-   6. @click.passive
-   7. @click.native
+   1. @click.stop  阻止事件冒泡
+   2. @click.prevent  阻止默认事件
+   3. @click.self  当前元素自身时触发
+   4. @click.once  绑定了事件以后只能触发一次，第二次就不会触发
+   5. @click.capture  使事件触发从包含这个元素的顶层开始往下触发（捕获模式）
+   6. @click.passive  修饰符一般用于触摸事件的监听器，可以用来改善移动端设备的滚屏性能，延迟事件触发
+   7. @click.native  让组件变成像html内置标签那样监听根元素的原生事件，否则组件上使用 v-on 只会监听自定义事件，操作普通HTML标签是会令事件失效的
  - 鼠标按键修饰符
    1. @click.left
    2. @click.right
@@ -187,6 +187,6 @@ $route 是一个包含当前路由信息的对象，它提供了有关当前路�
  - 键盘修饰符
    1. @keyup.keyCode[键码]、@keyup.enter、@keyup.tab（enter、tab、delete、space、esc、up、ctrl、alt、meta、shift）
  - v-bind修饰符
-   1. v-bind.sync
-   2. v-bind.prop
-   3. v-bind.camel
+   1. v-bind.sync  能对props进行一个双向绑定，但需注意子组件传递的事件名格式必须为update:value（this.$emit('update:value', params)），使用该修饰符后切不可使用表达式
+   2. v-bind.prop  设置自定义标签属性，避免暴露数据，防止污染HTML结构
+   3. v-bind.camel  将命名变为驼峰命名法
